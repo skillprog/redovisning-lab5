@@ -15,6 +15,7 @@ public class CWEvent implements SimEvent {
 	private int ARRIVE = 1;
 	private int LEAVE = 2;
 	private int STOP = 3;
+	//int successArrives = 0;
 	
 	private boolean stopping = false;
 	private boolean removing = false;
@@ -60,7 +61,7 @@ public class CWEvent implements SimEvent {
 		state.setEvent(action);
 		stopping = true;
 	}
-	
+
 	private void Arrival(){
 		idle(); //R�knar samman maskinernas idle time
 		state.setQueueTime(time); //R�knar samman k�tiderna enligt pdf exempel... fast den r�knar �ven rejected cars..
@@ -76,8 +77,10 @@ public class CWEvent implements SimEvent {
 			state.carWashQueue.add(1.0);
 			action = LEAVE;
 			fast = true;
+			state.meantimeCalc = state.meantimeCalc + 1;
 			
 		}
+
 		else if(state.getSlowWashers() > 0){
 			state.setSimulationTime(time);
 			state.setCarId(carId);
@@ -88,6 +91,7 @@ public class CWEvent implements SimEvent {
 			state.carWashQueue.add(2.0);
 			action = LEAVE;
 			slow = true;
+			state.meantimeCalc = state.meantimeCalc + 1;
 			
 		}
 		else if(state.getQueueSize() < state.getMaxQueueSize()){
@@ -148,6 +152,7 @@ public class CWEvent implements SimEvent {
 		state.setCarId(carId);
 		state.setSimulationTime(time);
 		state.setEvent(action);
+
 		
 		if(state.getQueueSize() == 0){ //Tar bort den senaste k�andes tid och tv�tt om k�n �r tom
 			while(state.carWashQueue.size() > 0){

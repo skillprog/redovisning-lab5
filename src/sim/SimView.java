@@ -5,7 +5,6 @@ import java.util.*;
 public abstract class SimView implements Observer{
 
 	protected SimView() {
-
 	}
 
 

@@ -24,6 +24,7 @@ public class CWState extends SimState {
 	private String event ="";
 	private String carId = "-";
 	private double previousEventTime = 0;
+	public int meantimeCalc = 0;
 	
 	private double queueTime = 0;
 	private double lastQueueTime = 0;
@@ -139,8 +140,7 @@ public class CWState extends SimState {
 
 
 	public double getMeanQueue(){
-		//TODO
-		return getQueueTime()/19; //Var i helvete kommer 19 ifr�n? Har h�kan gjort fel?
+		return getQueueTime()/meantimeCalc;
 	}
 	
 	public int getQueueSize(){
